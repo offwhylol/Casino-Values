@@ -1,86 +1,159 @@
-/* ANIMATIONS */
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-@keyframes rareGlow{
-  0%{
-    box-shadow:0 0 5px rgba(39,107,255,0.4);
-  }
+<title>Casino Values</title>
 
-  50%{
-    box-shadow:
-    0 0 15px rgba(39,107,255,0.9),
-    0 0 30px rgba(39,107,255,0.5);
-  }
+<style>
 
-  100%{
-    box-shadow:0 0 5px rgba(39,107,255,0.4);
-  }
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-@keyframes legendaryGlow{
-  0%{
-    box-shadow:0 0 8px rgba(255,204,0,0.3);
-  }
-
-  50%{
-    box-shadow:
-    0 0 18px rgba(255,204,0,0.9),
-    0 0 35px rgba(255,170,0,0.6);
-  }
-
-  100%{
-    box-shadow:0 0 8px rgba(255,204,0,0.3);
-  }
+body{
+  background:#070b12;
+  color:white;
+  font-family:Arial, Helvetica, sans-serif;
+  padding:40px;
 }
 
-@keyframes mythicGlow{
-  0%{
-    box-shadow:0 0 8px rgba(255,49,49,0.3);
-  }
+/* TOPBAR */
 
-  50%{
-    box-shadow:
-    0 0 18px rgba(255,49,49,0.9),
-    0 0 40px rgba(255,0,0,0.6);
-  }
-
-  100%{
-    box-shadow:0 0 8px rgba(255,49,49,0.3);
-  }
+.topbar{
+  width:100%;
+  margin-bottom:40px;
 }
 
-@keyframes jackpotRainbow{
-  0%{
-    filter:hue-rotate(0deg);
-    box-shadow:0 0 10px rgba(255,255,255,0.2);
-  }
+.search{
+  width:100%;
+  height:60px;
 
-  100%{
-    filter:hue-rotate(360deg);
-    box-shadow:
-    0 0 20px rgba(255,255,255,0.8),
-    0 0 40px rgba(255,255,255,0.4);
-  }
+  background:#111827;
+
+  border:none;
+  outline:none;
+
+  border-radius:18px;
+
+  padding:0 22px;
+
+  color:white;
+  font-size:16px;
+
+  border:1px solid rgba(255,255,255,0.06);
+
+  transition:0.2s;
 }
 
-@keyframes universalPulse{
-  0%{
-    box-shadow:
-    0 0 10px rgba(128,0,255,0.3),
-    0 0 25px rgba(0,100,255,0.2);
-  }
+.search:focus{
+  border-color:#7c5cff;
+  box-shadow:0 0 20px rgba(124,92,255,0.25);
+}
 
-  50%{
-    box-shadow:
-    0 0 25px rgba(183,0,255,0.8),
-    0 0 50px rgba(0,132,255,0.6),
-    0 0 80px rgba(255,255,255,0.15);
-  }
+/* TITLE */
 
-  100%{
-    box-shadow:
-    0 0 10px rgba(128,0,255,0.3),
-    0 0 25px rgba(0,100,255,0.2);
-  }
+.title{
+  font-size:55px;
+  font-weight:900;
+  margin-bottom:35px;
+}
+
+.title span{
+  color:#7c5cff;
+}
+
+/* GRID */
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:25px;
+}
+
+/* CARD */
+
+.card{
+  background:#101723;
+
+  position:relative;
+
+  border-radius:24px;
+
+  overflow:hidden;
+
+  border:1px solid rgba(255,255,255,0.06);
+
+  transition:0.25s;
+}
+
+.card:hover{
+  transform:
+    translateY(-8px)
+    scale(1.02);
+
+  border-color:#7c5cff;
+
+  box-shadow:
+    0 0 40px rgba(124,92,255,0.22);
+}
+
+.card img{
+  width:100%;
+  height:220px;
+  object-fit:contain;
+  background:#0d1119;
+  padding:15px;
+  image-rendering:auto;
+}
+
+.card-content{
+  padding:22px;
+}
+
+.card-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:14px;
+}
+
+.name{
+  font-size:28px;
+  font-weight:900;
+}
+
+.rarity{
+  padding:8px 14px;
+  border-radius:999px;
+
+  font-size:12px;
+  font-weight:bold;
+
+  text-transform:uppercase;
+}
+
+/* =========================
+   RARETÉS + ANIMATIONS
+========================= */
+
+.rarity{
+  padding:8px 14px;
+  border-radius:999px;
+
+  font-size:12px;
+  font-weight:bold;
+
+  text-transform:uppercase;
+
+  position:relative;
+  overflow:hidden;
+
+  animation: glow 3s infinite ease-in-out;
 }
 
 /* COMMON */
@@ -90,35 +163,61 @@
   color:black;
 
   box-shadow:
-  inset 0 1px 3px rgba(255,255,255,0.8),
-  0 0 8px rgba(255,255,255,0.2);
+    0 0 10px rgba(255,255,255,0.25);
 }
 
 /* RARE */
 
 .rare{
-  background:linear-gradient(135deg,#2b7fff,#0047ff);
+  background:linear-gradient(
+    135deg,
+    #1f5eff,
+    #4da3ff
+  );
+
   color:white;
 
-  animation:rareGlow 2s infinite;
+  box-shadow:
+    0 0 12px rgba(39,107,255,0.55);
+
+  animation:
+    glowBlue 2.5s infinite alternate;
 }
 
 /* LEGENDARY */
 
 .legendary{
-  background:linear-gradient(135deg,#ffe259,#ffa751);
+  background:linear-gradient(
+    135deg,
+    #ffcc00,
+    #ffea70
+  );
+
   color:black;
 
-  animation:legendaryGlow 2s infinite;
+  box-shadow:
+    0 0 16px rgba(255,204,0,0.65);
+
+  animation:
+    glowGold 2s infinite alternate;
 }
 
 /* MYTHIC */
 
 .mythic{
-  background:linear-gradient(135deg,#ff4b4b,#b30000);
+  background:linear-gradient(
+    135deg,
+    #ff3131,
+    #ff6a6a
+  );
+
   color:white;
 
-  animation:mythicGlow 1.8s infinite;
+  box-shadow:
+    0 0 16px rgba(255,49,49,0.6);
+
+  animation:
+    glowRed 1.8s infinite alternate;
 }
 
 /* JACKPOT */
@@ -132,15 +231,20 @@
     lime,
     cyan,
     blue,
-    violet
+    violet,
+    red
   );
 
-  background-size:400% 400%;
+  background-size:300%;
 
   color:white;
 
   animation:
-  jackpotRainbow 3s linear infinite;
+    rainbowMove 4s linear infinite,
+    glowRainbow 2s infinite alternate;
+
+  box-shadow:
+    0 0 18px rgba(255,255,255,0.4);
 }
 
 /* UNIVERSAL */
@@ -156,9 +260,639 @@
     #000000
   );
 
+  background-size:250%;
+
   color:#ffffff;
 
-  border:1px solid rgba(255,255,255,0.25);
+  border:1px solid rgba(255,255,255,0.2);
 
-  animation:universalPulse 3s infinite;
+  animation:
+    universalMove 5s linear infinite,
+    universalGlow 2.5s infinite alternate;
+
+  box-shadow:
+    0 0 24px rgba(120,0,255,0.55);
 }
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes glow{
+  from{
+    transform:scale(1);
+  }
+
+  to{
+    transform:scale(1.03);
+  }
+}
+
+@keyframes glowBlue{
+  from{
+    box-shadow:
+      0 0 10px rgba(39,107,255,0.4);
+  }
+
+  to{
+    box-shadow:
+      0 0 22px rgba(39,107,255,0.9);
+  }
+}
+
+@keyframes glowGold{
+  from{
+    box-shadow:
+      0 0 10px rgba(255,204,0,0.4);
+  }
+
+  to{
+    box-shadow:
+      0 0 28px rgba(255,204,0,1);
+  }
+}
+
+@keyframes glowRed{
+  from{
+    box-shadow:
+      0 0 10px rgba(255,49,49,0.4);
+  }
+
+  to{
+    box-shadow:
+      0 0 26px rgba(255,49,49,0.95);
+  }
+}
+
+@keyframes glowRainbow{
+  from{
+    box-shadow:
+      0 0 12px rgba(255,255,255,0.25);
+  }
+
+  to{
+    box-shadow:
+      0 0 28px rgba(255,255,255,0.9);
+  }
+}
+
+@keyframes rainbowMove{
+  0%{
+    background-position:0%;
+  }
+
+  100%{
+    background-position:300%;
+  }
+}
+
+@keyframes universalMove{
+  0%{
+    background-position:0%;
+  }
+
+  100%{
+    background-position:200%;
+  }
+}
+
+@keyframes universalGlow{
+  from{
+    box-shadow:
+      0 0 14px rgba(120,0,255,0.35);
+  }
+
+  to{
+    box-shadow:
+      0 0 34px rgba(120,0,255,0.95);
+  }
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+  body{
+    padding:20px;
+  }
+
+  .title{
+    font-size:38px;
+  }
+
+  .name{
+    font-size:22px;
+  }
+
+}
+
+</style>
+
+</head>
+<body>
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+  <input
+    type="text"
+    class="search"
+    id="searchInput"
+    placeholder="Search item..."
+  >
+
+</div>
+
+<!-- TITLE -->
+
+<div class="title">
+  CASINO<span>VALUES</span>
+</div>
+
+<!-- VALUES -->
+
+<div class="grid" id="itemGrid">
+
+  <!-- COMMON -->
+
+  <div class="card">
+
+    <img 
+      src="images/SatoruBox.webp"
+      loading="lazy"
+    >
+
+    <div class="card-content">
+
+      <div class="card-top">
+
+        <div class="name">
+          Satoru Box
+        </div>
+
+        <div class="rarity common">
+          Common
+        </div>
+
+      </div>
+
+      <div class="desc">
+        Petite boite, ayant des chances de décupler sa valeur.
+      </div>
+
+      <div class="value">
+        70K
+      </div>
+
+    </div>
+
+</div>
+
+  <div class="card">
+
+    <img 
+      src="images/reset.webp"
+      loading="lazy"
+    >
+
+    <div class="card-content">
+
+      <div class="card-top">
+
+        <div class="name">
+          Reset Cooldown
+        </div>
+
+        <div class="rarity common">
+          Common
+        </div>
+
+      </div>
+
+      <div class="desc">
+        Abilité de retirer le cooldown d'une attaque non ultime.
+      </div>
+
+      <div class="value">
+        25K
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- RARE -->
+
+  <div class="card">
+
+    <img 
+      src="images/LuckySpin.webp"
+      loading="lazy"
+    >
+
+    <div class="card-content">
+
+      <div class="card-top">
+
+        <div class="name">
+          Lucky Spin
+        </div>
+
+        <div class="rarity rare">
+          Rare
+        </div>
+
+      </div>
+
+      <div class="desc">
+        Un ticket famille premium pour augmenter ses chances.
+      </div>
+
+      <div class="value">
+        90K
+      </div>
+
+    </div>
+
+</div>
+    
+  <div class="card">
+
+    <img 
+      src="images/remove.webp"
+      loading="lazy"
+    >
+
+    <div class="card-content">
+
+      <div class="card-top">
+
+        <div class="name">
+          Reset Pouvoir
+        </div>
+
+        <div class="rarity rare">
+          Rare
+        </div>
+
+      </div>
+
+      <div class="desc">
+        Un jeton qui te permet de retirer ton pouvoir, il n'est pas toujours en stock, expliquant donc sa valeure élevée.
+      </div>
+
+      <div class="value">
+        1M
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- LEGENDARY -->
+
+  <div class="card">
+
+    <img 
+      src="images/SukunaFinger.webp"
+      loading="lazy"
+    >
+
+    <div class="card-content">
+
+      <div class="card-top">
+
+        <div class="name">
+          Sukuna Finger
+        </div>
+
+        <div class="rarity legendary">
+          Legendary
+        </div>
+
+      </div>
+
+      <div class="desc">
+        Une relique légendaire et maudites possédant une grande valeur.
+      </div>
+
+      <div class="value">
+        2M
+      </div>
+
+    </div>
+
+</div>
+    
+  <div class="card">
+
+    <img 
+      src="images/vip.webp"
+      loading="lazy"
+    >
+
+    <div class="card-content">
+
+      <div class="card-top">
+
+        <div class="name">
+          VIP
+        </div>
+
+        <div class="rarity legendary">
+          Legendary
+        </div>
+
+      </div>
+
+      <div class="desc">
+        Un role pour que les plus riches s'enrichissent encore plus. Ce role n'est pas toujours dans le shop, ce qui explique sa grande valeure.
+      </div>
+
+      <div class="value">
+        3M
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- LEGENDARY -->
+
+  <div class="card">
+
+    <img 
+      src="images/SatoruGojo.webp"
+      loading="lazy"
+    >
+
+    <div class="card-content">
+
+      <div class="card-top">
+
+        <div class="name">
+          Satoru Gojo
+        </div>
+
+        <div class="rarity legendary">
+          Legendary
+        </div>
+
+      </div>
+
+      <div class="desc">
+        Le pouvoir légendaire préféré de la majoritée des gens, ayant une valeure stable tout comme son potentiel.
+      </div>
+
+      <div class="value">
+        1M
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- MYTHIC -->
+
+  <div class="card">
+
+    <img 
+      src="images/Choso.webp"
+      loading="lazy"
+    >
+
+    <div class="card-content">
+
+      <div class="card-top">
+
+        <div class="name">
+          Choso
+        </div>
+
+        <div class="rarity mythic">
+          Mythic
+        </div>
+
+      </div>
+
+      <div class="desc">
+        Une nouvelle technique mythique ayant une valeure stable.
+      </div>
+
+      <div class="value">
+        4.5M
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- MYTHIC -->
+
+  <div class="card">
+
+    <img 
+      src="images/Kashimo.webp"
+      loading="lazy"
+    >
+
+    <div class="card-content">
+
+      <div class="card-top">
+
+        <div class="name">
+          Hajime Kashimo
+        </div>
+
+        <div class="rarity mythic">
+          Mythic
+        </div>
+
+      </div>
+
+      <div class="desc">
+        Un pouvoir électriquement mythique avec une valeure élevée.
+      </div>
+
+      <div class="value">
+        6.9M
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- JACKPOT -->
+
+  <div class="card">
+
+    <img 
+      src="images/Yuta.webp"
+      loading="lazy"
+    >
+
+    <div class="card-content">
+
+      <div class="card-top">
+
+        <div class="name">
+          Queen Of Curses
+        </div>
+
+        <div class="rarity jackpot">
+          Jackpot
+        </div>
+
+      </div>
+
+      <div class="desc">
+        Une technique extrêmement offensive avec une très grande demande.
+      </div>
+
+      <div class="value">
+        9M
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- JACKPOT -->
+
+  <div class="card">
+
+    <img 
+      src="images/Megumi.webp"
+      loading="lazy"
+    >
+
+    <div class="card-content">
+
+      <div class="card-top">
+
+        <div class="name">
+          Ten Shadow
+        </div>
+
+        <div class="rarity jackpot">
+          Jackpot
+        </div>
+
+      </div>
+
+      <div class="desc">
+        Une technique assez faible comparée au autres jackpots mais la plus puissante si elle est combinée avec Queen of Cursed ou mahoraga.
+      </div>
+
+      <div class="value">
+        9M
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- JACKPOT -->
+
+  <div class="card">
+
+    <img 
+      src="images/Yuki.webp"
+      loading="lazy"
+    >
+
+    <div class="card-content">
+
+      <div class="card-top">
+
+        <div class="name">
+          Yuki Tsukumo
+        </div>
+
+        <div class="rarity jackpot">
+          Jackpot
+        </div>
+
+      </div>
+
+      <div class="desc">
+        Une toute nouvelle technique extrêmement puissante, offensivement tout comme défensivement.
+      </div>
+
+      <div class="value">
+        9.5M
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- UNIVERSAL -->
+
+  <div class="card">
+
+    <img 
+      src="images/mahoraga.webp"
+      loading="lazy"
+    >
+
+    <div class="card-content">
+
+      <div class="card-top">
+
+        <div class="name">
+          Mahoraga
+        </div>
+
+        <div class="rarity universal">
+          Universal
+        </div>
+
+      </div>
+
+      <div class="desc">
+        2 copies de ce pouvoir éxistent, tellement rare qu'il est impossible d'en trouver la valeure.
+      </div>
+
+      <div class="value">
+        INF
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+/* SEARCH SYSTEM */
+
+const searchInput = document.getElementById("searchInput");
+
+searchInput.addEventListener("keyup", function(){
+
+  let filter = searchInput.value.toLowerCase();
+
+  let cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+
+    let text = card.innerText.toLowerCase();
+
+    if(text.includes(filter)){
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+
+  });
+
+});
+
+</script>
+
+</body>
+</html>
