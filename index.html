@@ -1,1285 +1,346 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-<title>Casino Values</title>
 
 <style>
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-body{
-  background:#070b12;
-  color:white;
-  font-family:Arial, Helvetica, sans-serif;
-  padding:40px;
-}
-
-/* TOPBAR */
-
-.topbar{
-  width:100%;
-  margin-bottom:40px;
-}
-
-.search{
-  width:100%;
-  height:60px;
-
-  background:#111827;
-
-  border:none;
-  outline:none;
-
-  border-radius:18px;
-
-  padding:0 22px;
-
-  color:white;
-  font-size:16px;
-
-  border:1px solid rgba(255,255,255,0.06);
-
-  transition:0.2s;
-}
-
-.search:focus{
-  border-color:#7c5cff;
-  box-shadow:0 0 20px rgba(124,92,255,0.25);
-}
-
-/* TITLE */
-
-.title{
-  font-size:55px;
-  font-weight:900;
-  margin-bottom:35px;
-}
-
-.title span{
-  color:#7c5cff;
-}
-
-/* SWITCHER */
-
-.switcher{
-  display:flex;
-  gap:15px;
-  margin-bottom:35px;
-}
-
-.tab{
-  background:#111827;
-  color:white;
-
-  border:none;
-
-  padding:14px 28px;
-
-  border-radius:14px;
-
-  cursor:pointer;
-
-  font-weight:bold;
-  font-size:15px;
-
-  transition:0.2s;
-
-  border:1px solid rgba(255,255,255,0.06);
-}
-
-.tab:hover{
-  transform:translateY(-2px);
-  border-color:#7c5cff;
-}
-
-.tab.active{
-  background:#7c5cff;
-
-  box-shadow:
-    0 0 25px rgba(124,92,255,0.45);
-}
-
-/* GRID */
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:25px;
-}
-
-/* PAGES */
-
-.page{
-  display:none;
-}
-
-.active-page{
-  display:grid;
-}
-
-/* CARD */
-
-.card{
-  background:#101723;
-
-  position:relative;
-
-  border-radius:24px;
-
-  overflow:hidden;
-
-  border:1px solid rgba(255,255,255,0.06);
-
-  transition:0.25s;
-}
-
-.card:hover{
-  transform:
-    translateY(-8px)
-    scale(1.02);
-
-  border-color:#7c5cff;
-
-  box-shadow:
-    0 0 40px rgba(124,92,255,0.22);
-}
-
-.card img{
-  width:100%;
-  height:220px;
-  object-fit:contain;
-  background:#0d1119;
-  padding:15px;
-  image-rendering:auto;
-}
-
-.card-content{
-  padding:22px;
-}
-
-.card-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-
-  margin-bottom:14px;
-}
-
-.name{
-  font-size:28px;
-  font-weight:900;
-}
-
-.rarity{
-  padding:8px 14px;
-  border-radius:999px;
-
-  font-size:12px;
-  font-weight:bold;
-
-  text-transform:uppercase;
-
-  position:relative;
-  overflow:hidden;
-
-  animation: glow 3s infinite ease-in-out;
-}
-
-/* COMMON */
-
-.common{
-  background:linear-gradient(135deg,#ffffff,#dcdcdc);
-  color:black;
-
-  box-shadow:
-    0 0 10px rgba(255,255,255,0.25);
-}
-
-/* RARE */
-
-.rare{
-  background:linear-gradient(
-    135deg,
-    #1f5eff,
-    #4da3ff
-  );
-
-  color:white;
-
-  box-shadow:
-    0 0 12px rgba(39,107,255,0.55);
-
-  animation:
-    glowBlue 2.5s infinite alternate;
-}
-
-/* EPIC */
-
-.epic{
-  background:linear-gradient(
-    135deg,
-    #8b5cf6,
-    #c084fc
-  );
-
-  color:white;
-
-  box-shadow:
-    0 0 14px rgba(168,85,247,0.6);
-
-  animation:
-    glowEpic 2s infinite alternate;
-}
-
-/* LEGENDARY */
-
-.legendary{
-  background:linear-gradient(
-    135deg,
-    #ffcc00,
-    #ffea70
-  );
-
-  color:black;
-
-  box-shadow:
-    0 0 16px rgba(255,204,0,0.65);
-
-  animation:
-    glowGold 2s infinite alternate;
-}
-
-/* MYTHIC */
-
-.mythic{
-  background:linear-gradient(
-    135deg,
-    #ff3131,
-    #ff6a6a
-  );
-
-  color:white;
-
-  box-shadow:
-    0 0 16px rgba(255,49,49,0.6);
-
-  animation:
-    glowRed 1.8s infinite alternate;
-}
-
-/* JACKPOT */
-
-.jackpot{
-  background:linear-gradient(
-    90deg,
-    red,
-    orange,
-    yellow,
-    lime,
-    cyan,
-    blue,
-    violet,
-    red
-  );
-
-  background-size:300%;
-
-  color:white;
-
-  animation:
-    rainbowMove 4s linear infinite,
-    glowRainbow 2s infinite alternate;
-
-  box-shadow:
-    0 0 18px rgba(255,255,255,0.4);
-}
-
-/* UNIVERSAL */
-
-.universal{
-  background:
-  linear-gradient(
-    135deg,
-    #1a0033,
-    #3b0a70,
-    #0d1b6d,
-    #5000a8,
-    #000000
-  );
-
-  background-size:250%;
-
-  color:#ffffff;
-
-  border:1px solid rgba(255,255,255,0.2);
-
-  animation:
-    universalMove 10s linear infinite,
-    universalGlow 5s infinite alternate;
-
-  box-shadow:
-    0 0 24px rgba(120,0,255,0.55);
-}
-
-/* FAMILY CARD */
-
-.family-card{
-  min-height:140px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  position:relative;
-
-  background:
-    linear-gradient(145deg, #0f1624, #0b0f18);
-
-  border-radius:24px;
-
-  border:1px solid rgba(255,255,255,0.06);
-
-  transition:0.25s;
-
-  overflow:hidden;
-}
-
-/* subtle inner glow layer */
-.family-card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:radial-gradient(circle at top, rgba(124,92,255,0.12), transparent 60%);
-  opacity:0;
-  transition:0.25s;
-}
-
-.family-card:hover{
-  transform: translateY(-6px) scale(1.02);
-  border-color:#7c5cff;
-  box-shadow:0 0 35px rgba(124,92,255,0.18);
-}
-
-.family-card:hover::before{
-  opacity:1;
-}
-
-/* CONTENT FIX */
-.family-card .card-content{
-  padding:18px;
-  text-align:center;
-  position:relative;
-  z-index:2;
-}
-
-/* NAME */
-.family-card .name{
-  font-size:22px;
-  font-weight:900;
-  letter-spacing:0.5px;
-}
-
-/* VALUE (N/A STYLE) */
-.family-card .value{
-  font-size:14px;
-  margin-top:12px;
-  padding-top:10px;
-
-  color:rgba(255,255,255,0.45);
-
-  border-top:1px solid rgba(255,255,255,0.06);
-
-  text-shadow:none;
-}
-
-/* OPTIONAL: make rarity badge smaller in families */
-.family-card .rarity{
-  font-size:11px;
-  padding:6px 10px;
-}
-
-/* FAMILY RARITY BORDER ACCENTS */
-
-.family-card:has(.common){
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
-}
-
-.family-card:has(.rare){
-  box-shadow: inset 0 0 0 1px rgba(77,163,255,0.15);
-}
-
-.family-card:has(.epic){
-  box-shadow: inset 0 0 0 1px rgba(192,132,252,0.18);
-}
-
-.family-card:has(.legendary){
-  box-shadow: inset 0 0 0 1px rgba(255,204,0,0.18);
-}
-
-.family-card:has(.mythic){
-  box-shadow: inset 0 0 0 1px rgba(255,80,80,0.18);
-}
-
-.family-card::after{
-  content:"";
-  position:absolute;
-  width:120px;
-  height:120px;
-  background:radial-gradient(circle, rgba(124,92,255,0.15), transparent 70%);
-  top:-40px;
-  right:-40px;
-  transform:rotate(25deg);
-}
-
-/* ANIMATIONS */
-
-@keyframes glow{
-  from{
-    transform:scale(1);
-  }
-
-  to{
-    transform:scale(1.03);
-  }
-}
-
-@keyframes glowBlue{
-  from{
-    box-shadow:
-      0 0 10px rgba(39,107,255,0.4);
-  }
-
-  to{
-    box-shadow:
-      0 0 22px rgba(39,107,255,0.9);
-  }
-}
-
-@keyframes glowGold{
-  from{
-    box-shadow:
-      0 0 10px rgba(255,204,0,0.4);
-  }
-
-  to{
-    box-shadow:
-      0 0 28px rgba(255,204,0,1);
-  }
-}
-
-@keyframes glowRed{
-  from{
-    box-shadow:
-      0 0 10px rgba(255,49,49,0.4);
-  }
-
-  to{
-    box-shadow:
-      0 0 26px rgba(255,49,49,0.95);
-  }
-}
-
-@keyframes glowEpic{
-  from{
-    box-shadow:
-      0 0 10px rgba(168,85,247,0.35);
-  }
-
-  to{
-    box-shadow:
-      0 0 28px rgba(192,132,252,1);
-  }
-}
-
-@keyframes glowRainbow{
-  from{
-    box-shadow:
-      0 0 12px rgba(255,255,255,0.25);
-  }
-
-  to{
-    box-shadow:
-      0 0 28px rgba(255,255,255,0.9);
-  }
-}
-
-@keyframes rainbowMove{
-  0%{
-    background-position:0%;
-  }
-
-  100%{
-    background-position:300%;
-  }
-}
-
-@keyframes universalMove{
-  0%{
-    background-position:0%;
-  }
-
-  100%{
-    background-position:200%;
-  }
-}
-
-@keyframes universalGlow{
-  from{
-    box-shadow:
-      0 0 14px rgba(120,0,255,0.35);
-  }
-
-  to{
-    box-shadow:
-      0 0 34px rgba(120,0,255,0.95);
-  }
-}
-
-.value{
-  font-size:42px;
-
-  font-weight:900;
-
-  color:#ffffff;
-
-  margin-top:14px;
-
-  text-shadow:
-    0 0 12px rgba(255,255,255,0.18);
-
-  letter-spacing:1px;
-
-  border-top:
-    1px solid rgba(255,255,255,0.06);
-
-  padding-top:14px;
-}
-
-/* MOBILE */
-
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#070b12;color:white;font-family:Arial,Helvetica,sans-serif;padding:40px}
+.topbar{width:100%;margin-bottom:40px}
+.search{width:100%;height:60px;background:#111827;border:none;outline:none;border-radius:18px;padding:0 22px;color:white;font-size:16px;border:1px solid rgba(255,255,255,0.06);transition:0.2s}
+.search:focus{border-color:#7c5cff;box-shadow:0 0 20px rgba(124,92,255,0.25)}
+.title{font-size:55px;font-weight:900;margin-bottom:35px}
+.title span{color:#7c5cff}
+.switcher{display:flex;gap:15px;margin-bottom:35px;flex-wrap:wrap}
+.tab{background:#111827;color:white;border:none;padding:14px 28px;border-radius:14px;cursor:pointer;font-weight:bold;font-size:15px;transition:0.2s;border:1px solid rgba(255,255,255,0.06)}
+.tab:hover{transform:translateY(-2px);border-color:#7c5cff}
+.tab.active{background:#7c5cff;box-shadow:0 0 25px rgba(124,92,255,0.45)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:25px}
+.page{display:none}
+.active-page{display:grid}
+.card{background:#101723;position:relative;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);transition:0.25s}
+.card:hover{transform:translateY(-8px) scale(1.02);border-color:#7c5cff;box-shadow:0 0 40px rgba(124,92,255,0.22)}
+.card img{width:100%;height:220px;object-fit:contain;background:#0d1119;padding:15px}
+.card-content{padding:22px}
+.card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.name{font-size:28px;font-weight:900}
+.rarity{padding:8px 14px;border-radius:999px;font-size:12px;font-weight:bold;text-transform:uppercase;position:relative;overflow:hidden}
+.common{background:linear-gradient(135deg,#ffffff,#dcdcdc);color:black;box-shadow:0 0 10px rgba(255,255,255,0.25)}
+.rare{background:linear-gradient(135deg,#1f5eff,#4da3ff);color:white;box-shadow:0 0 12px rgba(39,107,255,0.55)}
+.epic{background:linear-gradient(135deg,#8b5cf6,#c084fc);color:white;box-shadow:0 0 14px rgba(168,85,247,0.6)}
+.legendary{background:linear-gradient(135deg,#ffcc00,#ffea70);color:black;box-shadow:0 0 16px rgba(255,204,0,0.65)}
+.mythic{background:linear-gradient(135deg,#ff3131,#ff6a6a);color:white;box-shadow:0 0 16px rgba(255,49,49,0.6)}
+.jackpot{background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet,red);background-size:300%;color:white;animation:rainbowMove 4s linear infinite;box-shadow:0 0 18px rgba(255,255,255,0.4)}
+.universal{background:linear-gradient(135deg,#1a0033,#3b0a70,#0d1b6d,#5000a8,#000000);background-size:250%;color:#ffffff;border:1px solid rgba(255,255,255,0.2);animation:universalMove 10s linear infinite;box-shadow:0 0 24px rgba(120,0,255,0.55)}
+.value{font-size:42px;font-weight:900;color:#ffffff;margin-top:14px;text-shadow:0 0 12px rgba(255,255,255,0.18);letter-spacing:1px;border-top:1px solid rgba(255,255,255,0.06);padding-top:14px}
+.family-card{min-height:140px;display:flex;align-items:center;justify-content:center;position:relative;background:linear-gradient(145deg,#0f1624,#0b0f18);border-radius:24px;border:1px solid rgba(255,255,255,0.06);transition:0.25s;overflow:hidden}
+.family-card:hover{transform:translateY(-6px) scale(1.02);border-color:#7c5cff;box-shadow:0 0 35px rgba(124,92,255,0.18)}
+.family-card .card-content{padding:18px;text-align:center;position:relative;z-index:2}
+.family-card .name{font-size:22px;font-weight:900}
+.family-card .value{font-size:14px;margin-top:12px;padding-top:10px;color:rgba(255,255,255,0.45);border-top:1px solid rgba(255,255,255,0.06);text-shadow:none}
+@keyframes rainbowMove{0%{background-position:0%}100%{background-position:300%}}
+@keyframes universalMove{0%{background-position:0%}100%{background-position:200%}}
+
+/* CALCULATOR */
+.calc-page{display:none}
+.calc-page.active-page{display:block}
+.calc-wrapper{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
+.calc-side{background:#101723;border-radius:24px;border:1px solid rgba(255,255,255,0.06);padding:24px}
+.calc-side-title{font-size:18px;font-weight:900;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.badge-you{background:rgba(124,92,255,0.2);color:#a78bfa;border:1px solid rgba(124,92,255,0.3);padding:6px 14px;border-radius:999px;font-size:13px;font-weight:bold}
+.badge-them{background:rgba(168,85,247,0.15);color:#c084fc;border:1px solid rgba(168,85,247,0.3);padding:6px 14px;border-radius:999px;font-size:13px;font-weight:bold}
+.calc-stats{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.stat-box{background:#0d1119;border-radius:12px;padding:10px 14px;flex:1;min-width:80px;border:1px solid rgba(255,255,255,0.06)}
+.stat-label{font-size:10px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.stat-val{font-size:18px;font-weight:900;color:#7c5cff}
+.stat-val.gold{color:#fbbf24}
+.item-slot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-height:200px}
+.item-slot{background:#0d1119;border-radius:16px;border:1px dashed rgba(124,92,255,0.3);aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:0.2s;position:relative;overflow:hidden}
+.item-slot:hover{border-color:#7c5cff;background:rgba(124,92,255,0.08)}
+.item-slot.filled{border-style:solid;border-color:rgba(124,92,255,0.4);background:#111827}
+.item-slot .plus-icon{font-size:28px;color:rgba(124,92,255,0.5)}
+.item-slot .add-label{font-size:11px;color:rgba(255,255,255,0.3);margin-top:4px}
+.item-slot .item-name{font-size:11px;font-weight:bold;color:white;text-align:center;padding:0 4px;line-height:1.3}
+.item-slot .item-val{font-size:10px;color:#7c5cff;font-weight:bold}
+.item-slot .remove-btn{position:absolute;top:4px;right:4px;background:rgba(255,49,49,0.15);border:none;color:#ff6a6a;border-radius:50%;width:18px;height:18px;font-size:10px;cursor:pointer;display:none;align-items:center;justify-content:center}
+.item-slot.filled:hover .remove-btn{display:flex}
+.calc-result{background:#101723;border-radius:24px;border:1px solid rgba(255,255,255,0.06);padding:28px;margin-bottom:24px}
+.result-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:gap}
+.result-status{font-size:22px;font-weight:900;display:flex;align-items:center;gap:10px}
+.result-bar-wrap{background:#0d1119;border-radius:999px;height:16px;overflow:hidden;position:relative;margin:16px 0;border:1px solid rgba(255,255,255,0.06)}
+.result-bar-you{height:100%;background:linear-gradient(90deg,#7c5cff,#a78bfa);transition:width 0.5s;float:left}
+.result-bar-them{height:100%;background:linear-gradient(90deg,#c084fc,#e879f9);transition:width 0.5s;float:left}
+.result-bar-center{position:absolute;top:0;left:50%;width:2px;height:100%;background:rgba(255,255,255,0.2);transform:translateX(-50%)}
+.result-numbers{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.rn-you{font-size:28px;font-weight:900;color:#7c5cff}
+.rn-them{font-size:28px;font-weight:900;color:#c084fc}
+.rn-label{font-size:12px;color:rgba(255,255,255,0.45)}
+.rn-vs{font-size:18px;color:rgba(255,255,255,0.3);font-weight:bold}
+.status-fair{color:#7c5cff;background:rgba(124,92,255,0.15);border:1px solid rgba(124,92,255,0.3);padding:8px 18px;border-radius:12px;font-size:16px;font-weight:900}
+.status-win{color:#4ade80;background:rgba(74,222,128,0.12);border:1px solid rgba(74,222,128,0.3);padding:8px 18px;border-radius:12px;font-size:16px;font-weight:900}
+.status-lose{color:#f87171;background:rgba(248,113,113,0.12);border:1px solid rgba(248,113,113,0.3);padding:8px 18px;border-radius:12px;font-size:16px;font-weight:900}
+.reset-btn{background:#0d1119;border:1px solid rgba(255,49,49,0.25);color:#f87171;padding:10px 20px;border-radius:12px;cursor:pointer;font-size:14px;font-weight:bold;transition:0.2s}
+.reset-btn:hover{background:rgba(248,113,113,0.08);border-color:#f87171}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:100;display:none;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:#111827;border-radius:24px;border:1px solid rgba(124,92,255,0.3);padding:28px;width:min(480px,90vw);max-height:80vh;overflow-y:auto}
+.modal-title{font-size:20px;font-weight:900;margin-bottom:16px;color:#a78bfa}
+.modal-search{width:100%;background:#0d1119;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:10px 16px;color:white;font-size:14px;outline:none;margin-bottom:16px}
+.modal-search:focus{border-color:#7c5cff}
+.modal-items{display:flex;flex-direction:column;gap:8px}
+.modal-item{display:flex;align-items:center;justify-content:space-between;background:#0d1119;border-radius:12px;padding:12px 16px;cursor:pointer;border:1px solid rgba(255,255,255,0.05);transition:0.2s}
+.modal-item:hover{border-color:#7c5cff;background:rgba(124,92,255,0.08)}
+.modal-item-name{font-size:14px;font-weight:bold}
+.modal-item-val{font-size:13px;color:#7c5cff;font-weight:bold}
+.modal-close{background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);padding:8px 16px;border-radius:10px;cursor:pointer;font-size:13px;margin-top:12px;float:right}
+.modal-close:hover{border-color:#7c5cff;color:white}
 @media(max-width:700px){
-
-  body{
-    padding:20px;
-  }
-
-  .title{
-    font-size:38px;
-  }
-
-  .name{
-    font-size:22px;
-  }
-
+  body{padding:20px}
+  .title{font-size:38px}
+  .name{font-size:22px}
+  .calc-wrapper{grid-template-columns:1fr}
+  .item-slot-grid{grid-template-columns:repeat(3,1fr)}
 }
-
 </style>
 
-</head>
-<body>
-
-<!-- TOPBAR -->
-
 <div class="topbar">
-
-  <input
-    type="text"
-    class="search"
-    id="searchInput"
-    placeholder="Search..."
-  >
-
+  <input type="text" class="search" id="searchInput" placeholder="Search...">
 </div>
-
-<!-- TITLE -->
-
-<div class="title">
-  CASINO<span>VALUES</span>
-</div>
-
-<!-- BUTTONS -->
-
+<div class="title">CASINO<span>VALUES</span></div>
 <div class="switcher">
-
-  <button class="tab active" onclick="showPage('items')">
-    Objets
-  </button>
-
-  <button class="tab" onclick="showPage('families')">
-    Familles
-  </button>
-
+  <button class="tab active" onclick="showPage('items')">Objets</button>
+  <button class="tab" onclick="showPage('families')">Familles</button>
+  <button class="tab" onclick="showPage('calculator')">Calculator</button>
 </div>
 
 <!-- ITEMS -->
-
 <div class="grid page active-page" id="itemsPage">
-
-  <!-- COMMON -->
-
-  <div class="card">
-
-    <img src="images/SatoruBox.webp" loading="lazy">
-
-    <div class="card-content">
-
-      <div class="card-top">
-
-        <div class="name">
-          Satoru Box
-        </div>
-
-        <div class="rarity common">
-          Common
-        </div>
-
-      </div>
-
-      <div class="desc">
-        Petite boite, ayant des chances de décupler sa valeur.
-      </div>
-
-      <div class="value">
-        70K
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="card">
-
-    <img src="images/reset.webp" loading="lazy">
-
-    <div class="card-content">
-
-      <div class="card-top">
-
-        <div class="name">
-          Reset Cooldown
-        </div>
-
-        <div class="rarity common">
-          Common
-        </div>
-
-      </div>
-
-      <div class="desc">
-        Abilité de retirer le cooldown d'une attaque non ultime.
-      </div>
-
-      <div class="value">
-        25K
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- RARE -->
-
-  <div class="card">
-
-    <img 
-      src="images/LuckySpin.webp"
-      loading="lazy"
-    >
-
-    <div class="card-content">
-
-      <div class="card-top">
-
-        <div class="name">
-          Lucky Spin
-        </div>
-
-        <div class="rarity rare">
-          Rare
-        </div>
-
-      </div>
-
-      <div class="desc">
-        Un ticket famille premium pour augmenter ses chances.
-      </div>
-
-      <div class="value">
-        90K
-      </div>
-
-    </div>
-
-  </div>
-    
-  <div class="card">
-
-    <img 
-      src="images/remove.webp"
-      loading="lazy"
-    >
-
-    <div class="card-content">
-
-      <div class="card-top">
-
-        <div class="name">
-          Reset Pouvoir
-        </div>
-
-        <div class="rarity rare">
-          Rare
-        </div>
-
-      </div>
-
-      <div class="desc">
-        Un jeton qui te permet de retirer ton pouvoir, il n'est pas toujours en stock, expliquant donc sa valeure élevée.
-      </div>
-
-      <div class="value">
-        1M
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- LEGENDARY -->
-
-  <div class="card">
-
-    <img 
-      src="images/SukunaFinger.webp"
-      loading="lazy"
-    >
-
-    <div class="card-content">
-
-      <div class="card-top">
-
-        <div class="name">
-          Sukuna Finger
-        </div>
-
-        <div class="rarity legendary">
-          Legendary
-        </div>
-
-      </div>
-
-      <div class="desc">
-        Une relique légendaire et maudites possédant une grande valeur.
-      </div>
-
-      <div class="value">
-        2M
-      </div>
-
-    </div>
-
-  </div>
-    
-  <div class="card">
-
-    <img 
-      src="images/vip.webp"
-      loading="lazy"
-    >
-
-    <div class="card-content">
-
-      <div class="card-top">
-
-        <div class="name">
-          VIP
-        </div>
-
-        <div class="rarity legendary">
-          Legendary
-        </div>
-
-      </div>
-
-      <div class="desc">
-        Un role pour que les plus riches s'enrichissent encore plus. Ce role n'est pas toujours dans le shop, ce qui explique sa grande valeure.
-      </div>
-
-      <div class="value">
-        3M
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- LEGENDARY -->
-
-  <div class="card">
-
-    <img 
-      src="images/SatoruGojo.webp"
-      loading="lazy"
-    >
-
-    <div class="card-content">
-
-      <div class="card-top">
-
-        <div class="name">
-          Satoru Gojo
-        </div>
-
-        <div class="rarity legendary">
-          Legendary
-        </div>
-
-      </div>
-
-      <div class="desc">
-        Le pouvoir légendaire préféré de la majoritée des gens, ayant une valeure stable tout comme son potentiel.
-      </div>
-
-      <div class="value">
-        1M
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- MYTHIC -->
-
-  <div class="card">
-
-    <img 
-      src="images/Choso.webp"
-      loading="lazy"
-    >
-
-    <div class="card-content">
-
-      <div class="card-top">
-
-        <div class="name">
-          Choso
-        </div>
-
-        <div class="rarity mythic">
-          Mythic
-        </div>
-
-      </div>
-
-      <div class="desc">
-        Une nouvelle technique mythique ayant une valeure stable.
-      </div>
-
-      <div class="value">
-        4.5M
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- MYTHIC -->
-
-  <div class="card">
-
-    <img 
-      src="images/Kashimo.webp"
-      loading="lazy"
-    >
-
-    <div class="card-content">
-
-      <div class="card-top">
-
-        <div class="name">
-          Hajime Kashimo
-        </div>
-
-        <div class="rarity mythic">
-          Mythic
-        </div>
-
-      </div>
-
-      <div class="desc">
-        Un pouvoir électriquement mythique avec une valeure élevée.
-      </div>
-
-      <div class="value">
-        6.9M
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- JACKPOT -->
-
-  <div class="card">
-
-    <img 
-      src="images/Yuta.webp"
-      loading="lazy"
-    >
-
-    <div class="card-content">
-
-      <div class="card-top">
-
-        <div class="name">
-          Queen Of Curses
-        </div>
-
-        <div class="rarity jackpot">
-          Jackpot
-        </div>
-
-      </div>
-
-      <div class="desc">
-        Une technique extrêmement offensive avec une très grande demande.
-      </div>
-
-      <div class="value">
-        9M
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- JACKPOT -->
-
-  <div class="card">
-
-    <img 
-      src="images/Megumi.webp"
-      loading="lazy"
-    >
-
-    <div class="card-content">
-
-      <div class="card-top">
-
-        <div class="name">
-          Ten Shadow
-        </div>
-
-        <div class="rarity jackpot">
-          Jackpot
-        </div>
-
-      </div>
-
-      <div class="desc">
-        Une technique assez faible comparée au autres jackpots mais la plus puissante si elle est combinée avec Queen of Curses ou mahoraga.
-      </div>
-
-      <div class="value">
-        9M
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- JACKPOT -->
-
-  <div class="card">
-
-    <img 
-      src="images/Yuki.webp"
-      loading="lazy"
-    >
-
-    <div class="card-content">
-
-      <div class="card-top">
-
-        <div class="name">
-          Yuki Tsukumo
-        </div>
-
-        <div class="rarity jackpot">
-          Jackpot
-        </div>
-
-      </div>
-
-      <div class="desc">
-        Une toute nouvelle technique extrêmement puissante, offensivement tout comme défensivement.
-      </div>
-
-      <div class="value">
-        9.5M
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- UNIVERSAL -->
-
-  <div class="card">
-
-    <img 
-      src="images/mahoraga.webp"
-      loading="lazy"
-    >
-
-    <div class="card-content">
-
-      <div class="card-top">
-
-        <div class="name">
-          Mahoraga
-        </div>
-
-        <div class="rarity universal">
-          Universal
-        </div>
-
-      </div>
-
-      <div class="desc">
-        2 copies de ce pouvoir éxistent, tellement rare qu'il est impossible d'en trouver la valeure.
-      </div>
-
-      <div class="value">
-        INF
-      </div>
-
-    </div>
-
-  </div>
-
+  <div class="card"><img src="images/SatoruBox.webp" loading="lazy"><div class="card-content"><div class="card-top"><div class="name">Satoru Box</div><div class="rarity common">Common</div></div><div class="desc">Petite boite, ayant des chances de décupler sa valeur.</div><div class="value">70K</div></div></div>
+  <div class="card"><img src="images/reset.webp" loading="lazy"><div class="card-content"><div class="card-top"><div class="name">Reset Cooldown</div><div class="rarity common">Common</div></div><div class="desc">Abilité de retirer le cooldown d'une attaque non ultime.</div><div class="value">25K</div></div></div>
+  <div class="card"><img src="images/LuckySpin.webp" loading="lazy"><div class="card-content"><div class="card-top"><div class="name">Lucky Spin</div><div class="rarity rare">Rare</div></div><div class="desc">Un ticket famille premium pour augmenter ses chances.</div><div class="value">90K</div></div></div>
+  <div class="card"><img src="images/remove.webp" loading="lazy"><div class="card-content"><div class="card-top"><div class="name">Reset Pouvoir</div><div class="rarity rare">Rare</div></div><div class="desc">Un jeton qui te permet de retirer ton pouvoir.</div><div class="value">1M</div></div></div>
+  <div class="card"><img src="images/SukunaFinger.webp" loading="lazy"><div class="card-content"><div class="card-top"><div class="name">Sukuna Finger</div><div class="rarity legendary">Legendary</div></div><div class="desc">Une relique légendaire et maudites possédant une grande valeur.</div><div class="value">2M</div></div></div>
+  <div class="card"><img src="images/vip.webp" loading="lazy"><div class="card-content"><div class="card-top"><div class="name">VIP</div><div class="rarity legendary">Legendary</div></div><div class="desc">Un role pour que les plus riches s'enrichissent encore plus.</div><div class="value">3M</div></div></div>
+  <div class="card"><img src="images/SatoruGojo.webp" loading="lazy"><div class="card-content"><div class="card-top"><div class="name">Satoru Gojo</div><div class="rarity legendary">Legendary</div></div><div class="desc">Le pouvoir légendaire préféré de la majoritée des gens.</div><div class="value">1M</div></div></div>
+  <div class="card"><img src="images/Choso.webp" loading="lazy"><div class="card-content"><div class="card-top"><div class="name">Choso</div><div class="rarity mythic">Mythic</div></div><div class="desc">Une nouvelle technique mythique ayant une valeure stable.</div><div class="value">4.5M</div></div></div>
+  <div class="card"><img src="images/Kashimo.webp" loading="lazy"><div class="card-content"><div class="card-top"><div class="name">Hajime Kashimo</div><div class="rarity mythic">Mythic</div></div><div class="desc">Un pouvoir électriquement mythique avec une valeure élevée.</div><div class="value">6.9M</div></div></div>
+  <div class="card"><img src="images/Yuta.webp" loading="lazy"><div class="card-content"><div class="card-top"><div class="name">Queen Of Curses</div><div class="rarity jackpot">Jackpot</div></div><div class="desc">Une technique extrêmement offensive avec une très grande demande.</div><div class="value">9M</div></div></div>
+  <div class="card"><img src="images/Megumi.webp" loading="lazy"><div class="card-content"><div class="card-top"><div class="name">Ten Shadow</div><div class="rarity jackpot">Jackpot</div></div><div class="desc">Une technique assez faible comparée au autres jackpots.</div><div class="value">9M</div></div></div>
+  <div class="card"><img src="images/Yuki.webp" loading="lazy"><div class="card-content"><div class="card-top"><div class="name">Yuki Tsukumo</div><div class="rarity jackpot">Jackpot</div></div><div class="desc">Une toute nouvelle technique extrêmement puissante.</div><div class="value">9.5M</div></div></div>
+  <div class="card"><img src="images/mahoraga.webp" loading="lazy"><div class="card-content"><div class="card-top"><div class="name">Mahoraga</div><div class="rarity universal">Universal</div></div><div class="desc">2 copies de ce pouvoir éxistent, tellement rare qu'il est impossible d'en trouver la valeure.</div><div class="value">INF</div></div></div>
 </div>
 
 <!-- FAMILIES -->
-
 <div class="grid page" id="familiesPage">
-
-  <div class="card family-card">
-    <div class="card-content">
-      <div class="card-top">
-        <div class="name">Momo</div>
-        <div class="rarity common">Commun</div>
-      </div>
-
-      <div class="value">
-        N/A
-      </div>
-    </div>
-  </div>
-
-  <div class="card family-card">
-    <div class="card-content">
-      <div class="card-top">
-        <div class="name">Miwa</div>
-        <div class="rarity common">Commun</div>
-      </div>
-
-      <div class="value">
-        N/A
-      </div>
-    </div>
-  </div>
-
-  <div class="card family-card">
-    <div class="card-content">
-      <div class="card-top">
-        <div class="name">Inumaki</div>
-        <div class="rarity rare">Rare</div>
-      </div>
-
-      <div class="value">
-        N/A
-      </div>
-    </div>
-  </div>
-
-  <div class="card family-card">
-    <div class="card-content">
-      <div class="card-top">
-        <div class="name">Kugisaki</div>
-        <div class="rarity rare">Rare</div>
-      </div>
-
-      <div class="value">
-        N/A
-      </div>
-    </div>
-  </div>
-
-  <div class="card family-card">
-    <div class="card-content">
-      <div class="card-top">
-        <div class="name">Kamo</div>
-        <div class="rarity epic">Epique</div>
-      </div>
-
-      <div class="value">
-        N/A
-      </div>
-    </div>
-  </div>
-
-  <div class="card family-card">
-    <div class="card-content">
-      <div class="card-top">
-        <div class="name">Itadori</div>
-        <div class="rarity epic">Epique</div>
-      </div>
-
-      <div class="value">
-        N/A
-      </div>
-    </div>
-  </div>
-
-  <div class="card family-card">
-    <div class="card-content">
-      <div class="card-top">
-        <div class="name">Hakari</div>
-        <div class="rarity legendary">Légendaire</div>
-      </div>
-
-      <div class="value">
-        N/A
-      </div>
-    </div>
-  </div>
-
-  <div class="card family-card">
-    <div class="card-content">
-      <div class="card-top">
-        <div class="name">Tsukumo</div>
-        <div class="rarity legendary">Légendaire</div>
-      </div>
-
-      <div class="value">
-        N/A
-      </div>
-    </div>
-  </div>
-
-  <div class="card family-card">
-    <div class="card-content">
-      <div class="card-top">
-        <div class="name">Zenin</div>
-        <div class="rarity legendary">Légendaire</div>
-      </div>
-
-      <div class="value">
-        N/A
-      </div>
-    </div>
-  </div>
-
-  <div class="card family-card">
-    <div class="card-content">
-      <div class="card-top">
-        <div class="name">Sukuna</div>
-        <div class="rarity mythic">Mythique</div>
-      </div>
-
-      <div class="value">
-        N/A
-      </div>
-    </div>
-  </div>
-
-  <div class="card family-card">
-    <div class="card-content">
-      <div class="card-top">
-        <div class="name">Gojo</div>
-        <div class="rarity mythic">Mythique</div>
-      </div>
-
-      <div class="value">
-        N/A
-      </div>
-    </div>
-  </div>
-
-  <div class="card family-card">
-    <div class="card-content">
-      <div class="card-top">
-        <div class="name">Okkotsu</div>
-        <div class="rarity mythic">Mythique</div>
-      </div>
-
-      <div class="value">
-        N/A
-      </div>
-    </div>
-  </div>
-
+  <div class="card family-card"><div class="card-content"><div class="card-top"><div class="name">Momo</div><div class="rarity common">Commun</div></div><div class="value">N/A</div></div></div>
+  <div class="card family-card"><div class="card-content"><div class="card-top"><div class="name">Miwa</div><div class="rarity common">Commun</div></div><div class="value">N/A</div></div></div>
+  <div class="card family-card"><div class="card-content"><div class="card-top"><div class="name">Inumaki</div><div class="rarity rare">Rare</div></div><div class="value">N/A</div></div></div>
+  <div class="card family-card"><div class="card-content"><div class="card-top"><div class="name">Kugisaki</div><div class="rarity rare">Rare</div></div><div class="value">N/A</div></div></div>
+  <div class="card family-card"><div class="card-content"><div class="card-top"><div class="name">Kamo</div><div class="rarity epic">Epique</div></div><div class="value">N/A</div></div></div>
+  <div class="card family-card"><div class="card-content"><div class="card-top"><div class="name">Itadori</div><div class="rarity epic">Epique</div></div><div class="value">N/A</div></div></div>
+  <div class="card family-card"><div class="card-content"><div class="card-top"><div class="name">Hakari</div><div class="rarity legendary">Légendaire</div></div><div class="value">N/A</div></div></div>
+  <div class="card family-card"><div class="card-content"><div class="card-top"><div class="name">Tsukumo</div><div class="rarity legendary">Légendaire</div></div><div class="value">N/A</div></div></div>
+  <div class="card family-card"><div class="card-content"><div class="card-top"><div class="name">Zenin</div><div class="rarity legendary">Légendaire</div></div><div class="value">N/A</div></div></div>
+  <div class="card family-card"><div class="card-content"><div class="card-top"><div class="name">Sukuna</div><div class="rarity mythic">Mythique</div></div><div class="value">N/A</div></div></div>
+  <div class="card family-card"><div class="card-content"><div class="card-top"><div class="name">Gojo</div><div class="rarity mythic">Mythique</div></div><div class="value">N/A</div></div></div>
+  <div class="card family-card"><div class="card-content"><div class="card-top"><div class="name">Okkotsu</div><div class="rarity mythic">Mythique</div></div><div class="value">N/A</div></div></div>
 </div>
+
+<!-- CALCULATOR -->
+<div class="calc-page page" id="calculatorPage">
+  <div class="calc-wrapper">
+    <div class="calc-side">
+      <div class="calc-side-title"><span class="badge-you">⬇ Toi</span></div>
+      <div class="calc-stats">
+        <div class="stat-box"><div class="stat-label">Valeur</div><div class="stat-val" id="youVal">0</div></div>
+        <div class="stat-box"><div class="stat-label">Items</div><div class="stat-val gold" id="youCount">0</div></div>
+      </div>
+      <div class="item-slot-grid" id="youSlots"></div>
+    </div>
+    <div class="calc-side">
+      <div class="calc-side-title"><span class="badge-them">⬆ Eux</span></div>
+      <div class="calc-stats">
+        <div class="stat-box"><div class="stat-label">Valeur</div><div class="stat-val" id="themVal">0</div></div>
+        <div class="stat-box"><div class="stat-label">Items</div><div class="stat-val gold" id="themCount">0</div></div>
+      </div>
+      <div class="item-slot-grid" id="themSlots"></div>
+    </div>
+  </div>
+  <div class="calc-result">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+      <div class="result-status"><span id="resultStatus" class="status-fair">⚖ Équitable</span></div>
+      <button class="reset-btn" onclick="resetCalc()">🗑 Reset</button>
+    </div>
+    <div class="result-numbers" style="margin-bottom:12px">
+      <div style="text-align:center"><div class="rn-label">Toi</div><div class="rn-you" id="rn-you">0</div></div>
+      <div class="rn-vs">VS</div>
+      <div style="text-align:center"><div class="rn-label">Eux</div><div class="rn-them" id="rn-them">0</div></div>
+    </div>
+    <div class="result-bar-wrap">
+      <div class="result-bar-you" id="barYou" style="width:50%"></div>
+      <div class="result-bar-them" id="barThem" style="width:50%"></div>
+      <div class="result-bar-center"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:6px">
+      <span style="font-size:11px;color:rgba(255,255,255,0.35)">Toi</span>
+      <span style="font-size:11px;color:rgba(255,255,255,0.35)">Eux</span>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-title">Ajouter un objet</div>
+    <input type="text" class="modal-search" id="modalSearch" placeholder="Rechercher..." oninput="filterModal()">
+    <div class="modal-items" id="modalItems"></div>
+    <button class="modal-close" onclick="closeModal()">Fermer</button>
+  </div>
+</div>
+
 <script>
+const ITEMS=[
+  {name:"Satoru Box",value:70000,rarity:"common"},
+  {name:"Reset Cooldown",value:25000,rarity:"common"},
+  {name:"Lucky Spin",value:90000,rarity:"rare"},
+  {name:"Reset Pouvoir",value:1000000,rarity:"rare"},
+  {name:"Sukuna Finger",value:2000000,rarity:"legendary"},
+  {name:"VIP",value:3000000,rarity:"legendary"},
+  {name:"Satoru Gojo",value:1000000,rarity:"legendary"},
+  {name:"Choso",value:4500000,rarity:"mythic"},
+  {name:"Hajime Kashimo",value:6900000,rarity:"mythic"},
+  {name:"Queen Of Curses",value:9000000,rarity:"jackpot"},
+  {name:"Ten Shadow",value:9000000,rarity:"jackpot"},
+  {name:"Yuki Tsukumo",value:9500000,rarity:"jackpot"},
+  {name:"Mahoraga",value:Infinity,rarity:"universal"},
+];
 
-/* PAGE SWITCH */
-
-const tabs = document.querySelectorAll(".tab");
-
-function showPage(page){
-
-  document.querySelectorAll(".page").forEach(p=>{
-    p.classList.remove("active-page");
-  });
-
-  tabs.forEach(t=>{
-    t.classList.remove("active");
-  });
-
-  if(page === "items"){
-    document.getElementById("itemsPage").classList.add("active-page");
-    tabs[0].classList.add("active");
-  }
-
-  if(page === "families"){
-    document.getElementById("familiesPage").classList.add("active-page");
-    tabs[1].classList.add("active");
-  }
-
+function fmtVal(v){
+  if(!isFinite(v))return"INF";
+  if(v>=1000000)return(v/1000000).toFixed(v%1000000===0?0:1)+"M";
+  if(v>=1000)return(v/1000).toFixed(v%1000===0?0:1)+"K";
+  return v.toString();
 }
 
-/* SEARCH */
+const MAX_SLOTS=9;
+let youItems=[],themItems=[];
+let currentSide=null;
 
-const searchInput = document.getElementById("searchInput");
-
-searchInput.addEventListener("keyup", function(){
-
-  let filter = searchInput.value.toLowerCase();
-
-  let cards = document.querySelectorAll(".card");
-
-  cards.forEach(card => {
-
-    let text = card.innerText.toLowerCase();
-
-    if(text.includes(filter)){
-      card.style.display = "block";
+function renderSlots(side){
+  const items=side==="you"?youItems:themItems;
+  const grid=document.getElementById(side+"Slots");
+  grid.innerHTML="";
+  for(let i=0;i<MAX_SLOTS;i++){
+    const slot=document.createElement("div");
+    if(i<items.length){
+      slot.className="item-slot filled";
+      const it=items[i];
+      slot.innerHTML=`<div class="item-name">${it.name}</div><div class="item-val">${fmtVal(it.value)}</div><button class="remove-btn" onclick="removeItem('${side}',${i},event)">✕</button>`;
+    } else if(i===items.length&&items.length<MAX_SLOTS){
+      slot.className="item-slot";
+      slot.innerHTML=`<div class="plus-icon">+</div><div class="add-label">Ajouter</div>`;
+      slot.onclick=()=>openModal(side);
     } else {
-      card.style.display = "none";
+      slot.className="item-slot";
+      slot.style.opacity="0.3";
     }
+    grid.appendChild(slot);
+  }
+  updateCalc();
+}
 
+function removeItem(side,idx,e){
+  e.stopPropagation();
+  if(side==="you")youItems.splice(idx,1);
+  else themItems.splice(idx,1);
+  renderSlots(side);
+}
+
+function updateCalc(){
+  const youTotal=youItems.reduce((a,b)=>a+(isFinite(b.value)?b.value:0),0);
+  const themTotal=themItems.reduce((a,b)=>a+(isFinite(b.value)?b.value:0),0);
+  const youHasInf=youItems.some(i=>!isFinite(i.value));
+  const themHasInf=themItems.some(i=>!isFinite(i.value));
+  
+  document.getElementById("youVal").textContent=youHasInf?"INF":fmtVal(youTotal);
+  document.getElementById("themVal").textContent=themHasInf?"INF":fmtVal(themTotal);
+  document.getElementById("youCount").textContent=youItems.length;
+  document.getElementById("themCount").textContent=themItems.length;
+  document.getElementById("rn-you").textContent=youHasInf?"INF":fmtVal(youTotal);
+  document.getElementById("rn-them").textContent=themHasInf?"INF":fmtVal(themTotal);
+  
+  let youPct=50,themPct=50;
+  const total=youTotal+themTotal;
+  if(total>0&&!youHasInf&&!themHasInf){
+    youPct=Math.round((youTotal/total)*100);
+    themPct=100-youPct;
+  } else if(youHasInf&&!themHasInf){youPct=80;themPct=20;}
+  else if(!youHasInf&&themHasInf){youPct=20;themPct=80;}
+  
+  document.getElementById("barYou").style.width=youPct+"%";
+  document.getElementById("barThem").style.width=themPct+"%";
+  
+  const statusEl=document.getElementById("resultStatus");
+  if(youItems.length===0&&themItems.length===0){
+    statusEl.className="status-fair";statusEl.textContent="⚖ Équitable";return;
+  }
+  const diff=youHasInf?Infinity:themHasInf?-Infinity:(youTotal-themTotal);
+  const pct=total>0?Math.abs(diff)/total:0;
+  if(Math.abs(diff)<1||pct<0.05){statusEl.className="status-fair";statusEl.textContent="⚖ Équitable";}
+  else if(diff>0){statusEl.className="status-win";statusEl.textContent="✅ Tu gagnes";}
+  else{statusEl.className="status-lose";statusEl.textContent="❌ Tu perds";}
+}
+
+function openModal(side){
+  currentSide=side;
+  document.getElementById("modalSearch").value="";
+  filterModal();
+  document.getElementById("modalOverlay").classList.add("open");
+}
+
+function closeModal(){document.getElementById("modalOverlay").classList.remove("open");}
+function closeModalOutside(e){if(e.target===document.getElementById("modalOverlay"))closeModal();}
+
+function filterModal(){
+  const q=document.getElementById("modalSearch").value.toLowerCase();
+  const container=document.getElementById("modalItems");
+  container.innerHTML="";
+  ITEMS.filter(it=>it.name.toLowerCase().includes(q)).forEach(it=>{
+    const div=document.createElement("div");
+    div.className="modal-item";
+    div.innerHTML=`<div><div class="modal-item-name">${it.name}</div><div style="font-size:11px;color:rgba(255,255,255,0.4)">${it.rarity}</div></div><div class="modal-item-val">${fmtVal(it.value)}</div>`;
+    div.onclick=()=>{
+      const target=currentSide==="you"?youItems:themItems;
+      if(target.length<MAX_SLOTS){target.push(it);}
+      renderSlots(currentSide);
+      closeModal();
+    };
+    container.appendChild(div);
   });
+}
 
+function resetCalc(){
+  youItems=[];themItems=[];
+  renderSlots("you");renderSlots("them");
+}
+
+const tabs=document.querySelectorAll(".tab");
+function showPage(page){
+  document.querySelectorAll(".page,.calc-page").forEach(p=>{p.classList.remove("active-page");p.style.display="none"});
+  tabs.forEach(t=>t.classList.remove("active"));
+  if(page==="items"){const p=document.getElementById("itemsPage");p.style.display="";p.classList.add("active-page");tabs[0].classList.add("active");}
+  if(page==="families"){const p=document.getElementById("familiesPage");p.style.display="";p.classList.add("active-page");tabs[1].classList.add("active");}
+  if(page==="calculator"){const p=document.getElementById("calculatorPage");p.style.display="block";p.classList.add("active-page");tabs[2].classList.add("active");}
+}
+
+const searchInput=document.getElementById("searchInput");
+searchInput.addEventListener("keyup",function(){
+  const filter=searchInput.value.toLowerCase();
+  document.querySelectorAll(".card").forEach(card=>{
+    card.style.display=card.innerText.toLowerCase().includes(filter)?"block":"none";
+  });
 });
 
-</script>
+renderSlots("you");
+renderSlots("them");
 
-</body>
-</html>
+document.querySelectorAll(".page").forEach(p=>{p.style.display="none"});
+document.getElementById("itemsPage").style.display="";
+document.getElementById("itemsPage").classList.add("active-page");
+</script>
