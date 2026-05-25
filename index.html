@@ -283,8 +283,8 @@ function updateCalc(){
   const diff=youHasInf?Infinity:themHasInf?-Infinity:(youTotal-themTotal);
   const pct=total>0?Math.abs(diff)/total:0;
   if(Math.abs(diff)<1||pct<0.05){statusEl.className="status-fair";statusEl.textContent="⚖ Équitable";}
-  else if(diff>0){statusEl.className="status-win";statusEl.textContent="❌ Tu perds";}
-  else{statusEl.className="status-lose";statusEl.textContent="✅ Tu gagnes";}
+  else{statusEl.className="status-lose";statusEl.textContent="❌ Tu perds";}
+  else if(diff>0){statusEl.className="status-win";statusEl.textContent="✅ Tu gagnes";}
 }
 
 function openModal(side){
