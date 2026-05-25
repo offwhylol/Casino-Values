@@ -66,12 +66,62 @@ body{
   color:#7c5cff;
 }
 
+/* SWITCHER */
+
+.switcher{
+  display:flex;
+  gap:15px;
+  margin-bottom:35px;
+}
+
+.tab{
+  background:#111827;
+  color:white;
+
+  border:none;
+
+  padding:14px 28px;
+
+  border-radius:14px;
+
+  cursor:pointer;
+
+  font-weight:bold;
+  font-size:15px;
+
+  transition:0.2s;
+
+  border:1px solid rgba(255,255,255,0.06);
+}
+
+.tab:hover{
+  transform:translateY(-2px);
+  border-color:#7c5cff;
+}
+
+.tab.active{
+  background:#7c5cff;
+
+  box-shadow:
+    0 0 25px rgba(124,92,255,0.45);
+}
+
 /* GRID */
 
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
   gap:25px;
+}
+
+/* PAGES */
+
+.page{
+  display:none;
+}
+
+.active-page{
+  display:grid;
 }
 
 /* CARD */
@@ -135,20 +185,6 @@ body{
   font-weight:bold;
 
   text-transform:uppercase;
-}
-
-/* =========================
-   RARETÉS + ANIMATIONS
-========================= */
-
-.rarity{
-  padding:8px 14px;
-  border-radius:999px;
-
-  font-size:12px;
-  font-weight:bold;
-
-  text-transform:uppercase;
 
   position:relative;
   overflow:hidden;
@@ -182,6 +218,24 @@ body{
 
   animation:
     glowBlue 2.5s infinite alternate;
+}
+
+/* EPIC */
+
+.epic{
+  background:linear-gradient(
+    135deg,
+    #8b5cf6,
+    #c084fc
+  );
+
+  color:white;
+
+  box-shadow:
+    0 0 14px rgba(168,85,247,0.6);
+
+  animation:
+    glowEpic 2s infinite alternate;
 }
 
 /* LEGENDARY */
@@ -274,9 +328,15 @@ body{
     0 0 24px rgba(120,0,255,0.55);
 }
 
-/* =========================
-   ANIMATIONS
-========================= */
+/* FAMILY CARD */
+
+.family-card{
+  min-height:120px;
+  display:flex;
+  align-items:center;
+}
+
+/* ANIMATIONS */
 
 @keyframes glow{
   from{
@@ -321,6 +381,18 @@ body{
   to{
     box-shadow:
       0 0 26px rgba(255,49,49,0.95);
+  }
+}
+
+@keyframes glowEpic{
+  from{
+    box-shadow:
+      0 0 10px rgba(168,85,247,0.35);
+  }
+
+  to{
+    box-shadow:
+      0 0 28px rgba(192,132,252,1);
   }
 }
 
@@ -419,7 +491,7 @@ body{
     type="text"
     class="search"
     id="searchInput"
-    placeholder="Search item..."
+    placeholder="Search..."
   >
 
 </div>
@@ -430,18 +502,29 @@ body{
   CASINO<span>VALUES</span>
 </div>
 
-<!-- VALUES -->
+<!-- BUTTONS -->
 
-<div class="grid" id="itemGrid">
+<div class="switcher">
+
+  <button class="tab active" onclick="showPage('items')">
+    Objets
+  </button>
+
+  <button class="tab" onclick="showPage('families')">
+    Familles
+  </button>
+
+</div>
+
+<!-- ITEMS -->
+
+<div class="grid page active-page" id="itemsPage">
 
   <!-- COMMON -->
 
   <div class="card">
 
-    <img 
-      src="images/SatoruBox.webp"
-      loading="lazy"
-    >
+    <img src="images/SatoruBox.webp" loading="lazy">
 
     <div class="card-content">
 
@@ -467,14 +550,11 @@ body{
 
     </div>
 
-</div>
+  </div>
 
   <div class="card">
 
-    <img 
-      src="images/reset.webp"
-      loading="lazy"
-    >
+    <img src="images/reset.webp" loading="lazy">
 
     <div class="card-content">
 
@@ -535,7 +615,7 @@ body{
 
     </div>
 
-</div>
+  </div>
     
   <div class="card">
 
@@ -603,7 +683,7 @@ body{
 
     </div>
 
-</div>
+  </div>
     
   <div class="card">
 
@@ -637,7 +717,6 @@ body{
     </div>
 
   </div>
-
 
   <!-- LEGENDARY -->
 
@@ -886,9 +965,196 @@ body{
 
 </div>
 
+<!-- FAMILIES -->
+
+<div class="grid page" id="familiesPage">
+
+  <div class="card family-card">
+    <div class="card-content">
+      <div class="card-top">
+        <div class="name">Momo</div>
+        <div class="rarity common">Commun</div>
+      </div>
+
+      <div class="value">
+        N/A
+      </div>
+    </div>
+  </div>
+
+  <div class="card family-card">
+    <div class="card-content">
+      <div class="card-top">
+        <div class="name">Miwa</div>
+        <div class="rarity common">Commun</div>
+      </div>
+
+      <div class="value">
+        N/A
+      </div>
+    </div>
+  </div>
+
+  <div class="card family-card">
+    <div class="card-content">
+      <div class="card-top">
+        <div class="name">Inumaki</div>
+        <div class="rarity rare">Rare</div>
+      </div>
+
+      <div class="value">
+        N/A
+      </div>
+    </div>
+  </div>
+
+  <div class="card family-card">
+    <div class="card-content">
+      <div class="card-top">
+        <div class="name">Kugisaki</div>
+        <div class="rarity rare">Rare</div>
+      </div>
+
+      <div class="value">
+        N/A
+      </div>
+    </div>
+  </div>
+
+  <div class="card family-card">
+    <div class="card-content">
+      <div class="card-top">
+        <div class="name">Kamo</div>
+        <div class="rarity epic">Epique</div>
+      </div>
+
+      <div class="value">
+        N/A
+      </div>
+    </div>
+  </div>
+
+  <div class="card family-card">
+    <div class="card-content">
+      <div class="card-top">
+        <div class="name">Itadori</div>
+        <div class="rarity epic">Epique</div>
+      </div>
+
+      <div class="value">
+        N/A
+      </div>
+    </div>
+  </div>
+
+  <div class="card family-card">
+    <div class="card-content">
+      <div class="card-top">
+        <div class="name">Hakari</div>
+        <div class="rarity legendary">Légendaire</div>
+      </div>
+
+      <div class="value">
+        N/A
+      </div>
+    </div>
+  </div>
+
+  <div class="card family-card">
+    <div class="card-content">
+      <div class="card-top">
+        <div class="name">Tsukumo</div>
+        <div class="rarity legendary">Légendaire</div>
+      </div>
+
+      <div class="value">
+        N/A
+      </div>
+    </div>
+  </div>
+
+  <div class="card family-card">
+    <div class="card-content">
+      <div class="card-top">
+        <div class="name">Zenin</div>
+        <div class="rarity legendary">Légendaire</div>
+      </div>
+
+      <div class="value">
+        N/A
+      </div>
+    </div>
+  </div>
+
+  <div class="card family-card">
+    <div class="card-content">
+      <div class="card-top">
+        <div class="name">Sukuna</div>
+        <div class="rarity mythic">Mythique</div>
+      </div>
+
+      <div class="value">
+        N/A
+      </div>
+    </div>
+  </div>
+
+  <div class="card family-card">
+    <div class="card-content">
+      <div class="card-top">
+        <div class="name">Gojo</div>
+        <div class="rarity mythic">Mythique</div>
+      </div>
+
+      <div class="value">
+        N/A
+      </div>
+    </div>
+  </div>
+
+  <div class="card family-card">
+    <div class="card-content">
+      <div class="card-top">
+        <div class="name">Okkotsu</div>
+        <div class="rarity mythic">Mythique</div>
+      </div>
+
+      <div class="value">
+        N/A
+      </div>
+    </div>
+  </div>
+
+</div>
 <script>
 
-/* SEARCH SYSTEM */
+/* PAGE SWITCH */
+
+const tabs = document.querySelectorAll(".tab");
+
+function showPage(page){
+
+  document.querySelectorAll(".page").forEach(p=>{
+    p.classList.remove("active-page");
+  });
+
+  tabs.forEach(t=>{
+    t.classList.remove("active");
+  });
+
+  if(page === "items"){
+    document.getElementById("itemsPage").classList.add("active-page");
+    tabs[0].classList.add("active");
+  }
+
+  if(page === "families"){
+    document.getElementById("familiesPage").classList.add("active-page");
+    tabs[1].classList.add("active");
+  }
+
+}
+
+/* SEARCH */
 
 const searchInput = document.getElementById("searchInput");
 
