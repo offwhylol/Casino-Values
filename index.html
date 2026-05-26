@@ -1247,8 +1247,8 @@ function updateResult() {
   else if (youInf || themInf) { dv.textContent = "∞"; dv.style.color = "var(--accent2)"; }
   else {
     const diff = yt - tt;
-    dv.textContent = (diff > 0 ? "+" : "") + fmtVal(Math.abs(diff)) + (diff < 0 ? " en ta défaveur" : diff > 0 ? " en ta faveur" : "");
-    dv.style.color = diff > 0 ? "var(--rise)" : diff < 0 ? "var(--fall)" : "var(--muted)";
+    dv.textContent = (diff < 0 ? "+" : "") + fmtVal(Math.abs(diff)) + (diff > 0 ? " en ta défaveur" : diff > 0 ? " en ta faveur" : "");
+    dv.style.color = diff < 0 ? "var(--rise)" : diff > 0 ? "var(--fall)" : "var(--muted)";
   }
 
   const v = document.getElementById("verdict");
